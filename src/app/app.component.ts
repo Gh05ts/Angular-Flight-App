@@ -1,7 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
+// import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Employee } from 'src/models/employee';
-import { EmployeeService } from 'src/services/employeeSerivce';
+// import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +9,5 @@ import { EmployeeService } from 'src/services/employeeSerivce';
 })
 export class AppComponent implements OnInit {
   title = 'bestApp';
-  employees: Employee[] = [];
-  constructor(private employeeService: EmployeeService) {}
-
-  ngOnInit() {
-    this.getEmployees();
-  }
-
-  public getEmployees(): void {
-    this.employeeService.getEmployees().subscribe((response: Employee[]) => {
-      this.employees = response
-    }, (error: HttpErrorResponse) => {
-      alert(error.message)
-    })
-  }
+  ngOnInit() {}
 }
