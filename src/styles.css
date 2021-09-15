@@ -7,3 +7,9 @@
 
     font-family: sans-serif;
 }
+
+body {
+    background: url('./assets/613ffc20311f8.png');
+    background-size: contain;
+    background-blend-mode: luminosity;
+}

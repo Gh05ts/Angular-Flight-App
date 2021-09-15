@@ -9,6 +9,9 @@ import { CreateFlightComponent } from './create-flight/create-flight.component';
 import { ModifyFlightComponent } from './modify-flight/modify-flight.component';
 import { DeleteFlightComponent } from './delete-flight/delete-flight.component';
 import { ViewFlightComponent } from './view-flight/view-flight.component';
+import { StorageService } from '../services/dbService'
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ListFlightsComponent } from './list-flights/list-flights.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +19,16 @@ import { ViewFlightComponent } from './view-flight/view-flight.component';
     CreateFlightComponent,
     ModifyFlightComponent,
     DeleteFlightComponent,
-    ViewFlightComponent
+    ViewFlightComponent,
+    ListFlightsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientInMemoryWebApiModule.forRoot(StorageService)
   ],
   providers: [],
   bootstrap: [AppComponent]
