@@ -12,4 +12,16 @@ export class crudRepo {
   getAllFlights(): Observable<any[]> {
     return this.http.get<any[]>(this.url)
   }
+
+  addFlight(data: any) {
+    // pass
+  }
+
+  deleteFlight(data: any) {
+    // pass
+  }
+
+  modifyFlight(data: any) {
+    // pass
+  }
 }

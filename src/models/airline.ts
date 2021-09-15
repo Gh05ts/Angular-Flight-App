@@ -1,8 +1,8 @@
-export enum providerType { domestic, international }
+// export enum providerType { domestic, international }
 
 export interface airline {
-  id: number,
+  id?: number,
   providerName: string,
   providerCode: string,
-  providerType: providerType
+  providerType: string
 }

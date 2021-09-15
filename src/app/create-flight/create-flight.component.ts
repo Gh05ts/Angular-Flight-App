@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { airline } from 'src/models/airline';
 
 @Component({
   selector: 'app-create-flight',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateFlightComponent implements OnInit {
 
-  providerNames = [
+  providerNames:string[] = [
     "Indigo",
     "SpiceJet",
     "Air Asia",
@@ -15,37 +16,47 @@ export class CreateFlightComponent implements OnInit {
     "Jet Airways",
     "Air India"
   ]
+  providerCode: string = ""
+  providerTypes:string[] = ["Domestic", "International"]
 
-  providerTypes = ["Domestic", "International"]
-
-  providerCode: string = "6E-"
+  formModel: airline = {
+    providerCode: '',
+    providerName: '',
+    providerType: ''
+  }
 
   constructor() { }
 
   ngOnInit(): void { }
 
   firstDropChanged(val: any) {
-    const airline = val.target.value
+    const airline = val?.target?.value
     switch (airline) {
       case "Indigo":
-        this.providerCode = "6E-"
+        this.formModel.providerCode = "6E-"
         break
       case "SpiceJet":
-        this.providerCode = "SG-"
+        this.formModel.providerCode = "SG-"
         break
       case "Air Asia":
-        this.providerCode = "I5-"
+        this.formModel.providerCode = "I5-"
         break
       case "Go Air":
-        this.providerCode = "G8-"
+        this.formModel.providerCode = "G8-"
         break
       case "Jet Airways":
-        this.providerCode = "9W-"
+        this.formModel.providerCode = "9W-"
         break
       case "Air India":
-        this.providerCode = "AI-"
+        this.formModel.providerCode = "AI-"
         break
+      default:
+        this.formModel.providerCode = ""
     }
   }
+
+  // submit (van: any) {
+    
+  // }
 
 }
