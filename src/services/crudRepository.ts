@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, pipe, throwError } from "rxjs";
-import { switchMap, tap } from "rxjs/operators"
+import { Observable, throwError } from "rxjs";
+import { switchMap } from "rxjs/operators"
 import { airline } from "src/models/airline";
 
 @Injectable({
@@ -23,11 +23,9 @@ export class crudRepo {
         const isPresent = resp.find(obj => obj.providerCode === data.providerCode)
         if (isPresent) {
           return throwError("Provider code already exists")
-        } else {
-          data.id = crudRepo.magicNumber
-          crudRepo.magicNumber += 1
-          return this.http.post<airline>(this.url, data)
         }
+        data.id = crudRepo.magicNumber++
+        return this.http.post<airline>(this.url, data)
       })
     )
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { airline } from 'src/models/airline';
 import { crudRepo } from 'src/services/crudRepository';
+import { PROVIDER_CODES_MAP, PROVIDER_NAMES, PROVIDER_TYPES, PROVIDER_CODES } from '../app.constants';
 
 @Component({
   selector: 'app-create-flight',
@@ -10,16 +11,9 @@ import { crudRepo } from 'src/services/crudRepository';
 })
 export class CreateFlightComponent implements OnInit {
 
-  providerNames:string[] = [
-    "Indigo",
-    "SpiceJet",
-    "Air Asia",
-    "Go Air",
-    "Jet Airways",
-    "Air India"
-  ]
-  providerCode: string = ""
-  providerTypes:string[] = ["Domestic", "International"]
+  providerNames:string[] = PROVIDER_NAMES
+  providerCode: string[] = PROVIDER_CODES
+  providerTypes:string[] = PROVIDER_TYPES
 
   formModel: airline = {
     providerCode: '',
@@ -33,35 +27,16 @@ export class CreateFlightComponent implements OnInit {
     document.title = "Flight Creator"
   }
 
-  firstDropChanged(val: any) {
-    const airline = val?.target?.value
-    switch (airline) {
-      case "Indigo":
-        this.formModel.providerCode = "6E-"
-        break
-      case "SpiceJet":
-        this.formModel.providerCode = "SG-"
-        break
-      case "Air Asia":
-        this.formModel.providerCode = "I5-"
-        break
-      case "Go Air":
-        this.formModel.providerCode = "G8-"
-        break
-      case "Jet Airways":
-        this.formModel.providerCode = "9W-"
-        break
-      case "Air India":
-        this.formModel.providerCode = "AI-"
-        break
-      default:
-        this.formModel.providerCode = ""
-    }
+  firstDropChanged(e: Event) {
+    let airline = e.target as HTMLInputElement 
+    const airlineName = airline.value
+    const newValue = PROVIDER_CODES_MAP[airlineName]
+    this.formModel.providerCode = newValue? newValue: ""
   }
 
   onSubmit () {
     this.repo.addFlight(this.formModel).subscribe({
-      next: resp => this.router.navigate(['/']),
+      next: _ => this.router.navigate(['/']),
       error: alert
     })
   }
