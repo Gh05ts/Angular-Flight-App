@@ -6,8 +6,8 @@
       </div>
     </div>
     <div class="card-body">
-      {{createForm.value | json}}
-      <form #createForm="ngForm">
+      <!-- {{createForm.value | json}} -->
+      <form #createForm="ngForm" novalidate (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="name">Provider Name: </label>
           <select required #nameTag="ngModel" 
@@ -18,7 +18,7 @@
             <option *ngFor="let val of providerNames">{{val}}</option>
           </select>
           <small class="text-danger" [class.d-none]="nameTag.valid || nameTag.untouched">
-            Please select an airline
+            *required <!-- Please Select an Airline -->
           </small>
         </div>
         <div class="form-group">
@@ -30,16 +30,17 @@
           <label for="type">Provider Type: </label>
           <select class="form-control" id="type" required 
           #typeTag="ngModel" [class.is-invalid]="typeTag.invalid && typeTag.touched"
-          name="type" [(ngModel)]="formModel.providerType">
+          name="type" [(ngModel)]="formModel.providerType"> 
+          <!-- for non "" use this (blur)='validate(typeTag.value)' or (change)='validate(typeTag.value)' -->
             <option value="">Select Type</option>
             <option *ngFor="let val of providerTypes">{{val}}</option>
           </select>
           <small class="text-danger" [class.d-none]="typeTag.valid || typeTag.untouched">
-            Please select a type
+            *required <!-- Please Select a Flight Type -->
           </small>
         </div>
         <div class="text-center">
-          <button class="btn btn-info text-light mt-4 w-50">Create</button> <!-- w-100 -->
+          <button [disabled]="createForm.form.invalid" class="btn btn-info text-light mt-4 w-50">Create</button>
         </div>
       </form>
     </div>

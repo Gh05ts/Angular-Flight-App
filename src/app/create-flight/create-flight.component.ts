@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { airline } from 'src/models/airline';
+import { crudRepo } from 'src/services/crudRepository';
 
 @Component({
   selector: 'app-create-flight',
@@ -25,9 +27,11 @@ export class CreateFlightComponent implements OnInit {
     providerType: ''
   }
 
-  constructor() { }
+  constructor(private repo: crudRepo, private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    document.title = "Flight Creator"
+  }
 
   firstDropChanged(val: any) {
     const airline = val?.target?.value
@@ -55,8 +59,11 @@ export class CreateFlightComponent implements OnInit {
     }
   }
 
-  // submit (van: any) {
-    
-  // }
+  onSubmit () {
+    this.repo.addFlight(this.formModel).subscribe({
+      next: resp => this.router.navigate(['/']),
+      error: alert
+    })
+  }
 
 }

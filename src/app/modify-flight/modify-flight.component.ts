@@ -10,6 +10,7 @@ export class ModifyFlightComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.title = "Flight Modifier"
   }
 
 }

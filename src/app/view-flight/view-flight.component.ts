@@ -11,11 +11,10 @@ export class ViewFlightComponent implements OnInit {
   air:any = []
   filterWord: string = ''
 
-  constructor(private repo: crudRepo) {
-
-  }
+  constructor(private repo: crudRepo) {}
 
   ngOnInit(): void {
+    document.title = "Flight Viewer"
     this.getAirLines()
   }
 

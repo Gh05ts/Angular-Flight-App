@@ -9,7 +9,7 @@ export class FilterProviderTypePipe implements PipeTransform {
     return flightObj.filter(val => val
       .providerType
       .toLowerCase()
-      .includes(filterWord.toLowerCase()))
+      .startsWith(filterWord.toLowerCase()))
   }
 
 }
