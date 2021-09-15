@@ -1,3 +1,30 @@
 <div class="row">
-  <div class="card overflow-auto"></div>
+  <div class="card overflow-auto">
+    <div class="card-header">
+      <div class="text-center">
+        <h1>Create Flight</h1>
+      </div>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label for="firstInput">Provider Name: </label>
+          <select (change)="firstDropChanged($event)" class="form-control" id="firstInput">
+            <option *ngFor="let val of providerNames">{{val}}</option>
+          </select>
+        </div>
+        <div class="form-gropu">
+          <label for="secondInput">Provider Code: </label>
+          <input class="form-control" name="secondInput" id="secondInput" [(ngModel)]="providerCode">
+        </div>
+        <div class="form-group">
+          <label for="thirdInput">Provider Type: </label>
+          <select class="form-control" id="thirdInput">
+            <option *ngFor="let val of providerTypes">{{val}}</option>
+          </select>
+        </div>
+        <button class="btn btn-info text-light mt-2">Create</button>
+      </form>
+    </div>
+  </div>
 </div>
