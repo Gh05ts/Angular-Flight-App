@@ -9,18 +9,8 @@ import { crudRepo } from 'src/services/crudRepository';
 })
 export class ListFlightsComponent implements OnInit {
 
-  air:any = []
+  constructor() {}
 
-  constructor(private repo: crudRepo) {
-
-  }
-
-  ngOnInit(): void {
-    this.getAirLines()
-  }
-
-  private getAirLines() {
-    this.repo.getAllFlights().subscribe(prod => this.air = prod)
-  }
+  ngOnInit(): void {}
 
 }

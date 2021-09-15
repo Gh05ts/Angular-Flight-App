@@ -12,6 +12,7 @@ import { ViewFlightComponent } from './view-flight/view-flight.component';
 import { StorageService } from '../services/dbService'
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ListFlightsComponent } from './list-flights/list-flights.component';
+import { PipesModule } from 'src/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { ListFlightsComponent } from './list-flights/list-flights.component';
     ModifyFlightComponent,
     DeleteFlightComponent,
     ViewFlightComponent,
-    ListFlightsComponent
+    ListFlightsComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +29,7 @@ import { ListFlightsComponent } from './list-flights/list-flights.component';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
+    PipesModule,
     HttpClientInMemoryWebApiModule.forRoot(StorageService)
   ],
   providers: [],

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { crudRepo } from 'src/services/crudRepository';
 
 @Component({
   selector: 'app-view-flight',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewFlightComponent implements OnInit {
 
-  constructor() { }
+  air:any = []
+  filterWord: string = ''
+
+  constructor(private repo: crudRepo) {
+
+  }
 
   ngOnInit(): void {
+    this.getAirLines()
+  }
+
+  private getAirLines() {
+    this.repo.getAllFlights().subscribe(prod => this.air = prod)
   }
 
 }
