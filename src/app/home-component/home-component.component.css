@@ -6,3 +6,8 @@
   width: 60vw;
   height: 80vh;
 }
+
+.card-body {
+  background-image: url('../../assets/GettyImages-1177988041.png');
+  background-size: cover;
+}

@@ -1,8 +1,7 @@
 .card {
-  margin-top: 2vh;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 54%;
   transform: translate(-50%, -50%);
   width: 60vw;
   height: 80vh;

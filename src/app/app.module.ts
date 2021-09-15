@@ -11,8 +11,8 @@ import { DeleteFlightComponent } from './delete-flight/delete-flight.component';
 import { ViewFlightComponent } from './view-flight/view-flight.component';
 import { StorageService } from '../services/dbService'
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ListFlightsComponent } from './list-flights/list-flights.component';
 import { PipesModule } from 'src/pipes/pipes.module';
+import { HomeComponentComponent } from './home-component/home-component.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { PipesModule } from 'src/pipes/pipes.module';
     ModifyFlightComponent,
     DeleteFlightComponent,
     ViewFlightComponent,
-    ListFlightsComponent,
+    HomeComponentComponent,
   ],
   imports: [
     BrowserModule,
