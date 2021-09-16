@@ -31,38 +31,95 @@ export class ModifyFlightComponent implements OnInit {
     message: ""
   }
   
+  enableButton: boolean = false
+
   constructor(
     private repo: crudRepo,
     private router: Router,
     private airlineCache: TransferService, 
     ) {}
 
-    ngOnInit(): void {
-      document.title = "Flight Modifier"
+  ngOnInit(): void {
+    document.title = "Flight Modifier"
     this.airlineCache.update()
   }
   
-  validateCode (e: Event) {
-    const target = e.target as HTMLInputElement
-    const _code = target.value
-    const isFromOptions = this.providerCodes.find(obj => obj === _code)
-    console.debug(_code, isFromOptions)
+  validateCode (_: Event) {
+    const isFromOptions = this.providerCodes.includes(this.formModel.providerCode)
     if (isFromOptions) {
-
+      const currentDB = this.airlineCache.getCache()
+      const isPresent = currentDB?.find(
+        obj => obj.providerCode === this.formModel.providerCode
+      )
+      if(isPresent) {
+        this.formCodeModel.isValid = true
+        if(!this.formTypeModel.isValid) {
+          this.validateType(_)
+        }
+      } else {
+        this.formCodeModel.isValid = false
+        this.enableButton = false
+        this.formCodeModel.message = `Choose from these options: 
+        ${currentDB?.map(val => val.providerCode)}`   
+      }
     } else {
       this.formCodeModel.isValid = false
       this.formCodeModel.message = "*required"
+      this.enableButton = false
     }
   }
   
-  validateType (e: Event) {
-    const target = e.target as HTMLInputElement
-    const _type = target.value
-    
+  validateType (_: Event) {
+    const codeValue = this.formModel.providerCode
+    if(!this.formCodeModel.isValid || codeValue == "") {
+      this.formTypeModel.isValid = false
+      this.enableButton = false
+      this.formTypeModel.message = "Choose Provider Code first"
+      return
+    }
+    const isFromOptions = this.providerTypes.includes(this.formModel.providerType)
+    if(isFromOptions) {
+      const currentDb = this.airlineCache.getCache()
+      const isSame = currentDb?.find(
+        obj => obj.providerType === this.formModel.providerType 
+        && 
+        obj.providerCode === this.formModel.providerCode
+      )
+      if(isSame) {
+        this.formTypeModel.isValid = false
+        this.enableButton = false
+        this.formTypeModel.message = `
+        Current value is ${this.formModel.providerType} in database,
+        Please choose a different value`
+      } else {
+        this.formTypeModel.isValid = true
+        this.enableButton = true
+      }
+    } else {
+      this.enableButton = false
+      this.formTypeModel.isValid = false
+      this.formTypeModel.message = "*required"
+    }
   }
   
   onSubmit() {
-    
+    const currentDb = this.airlineCache.getCache()
+    const obj: airline | undefined = currentDb?.find(
+      obj => obj.providerCode === this.formModel.providerCode
+    )
+    const newObj: airline = { 
+      ...obj,
+      providerType: this.formModel.providerType
+    } as airline
+    this.repo.modifyFlight(newObj).subscribe(
+      {
+        next: _ => {
+          this.airlineCache.invalidateCache()
+          this.router.navigate(['/'])
+        },
+        error: err => alert
+      }
+    )
   }
   
 }

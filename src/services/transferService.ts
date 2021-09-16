@@ -22,8 +22,8 @@ export class TransferService {
 
   getCache() {
     const temp = this.cachedList
-    this.clearCache()
-    this.isValid = false
+    // this.clearCache()
+    // this.isValid = false
     return temp
   }
 
@@ -46,6 +46,11 @@ export class TransferService {
         }
       })
     }
+  }
+
+  invalidateCache() {
+    this.cachedList = undefined
+    this.isValid = false
   }
 
 }

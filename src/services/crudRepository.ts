@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { switchMap } from "rxjs/operators"
+// import { switchMap } from "rxjs/operators"
 import { airline } from "src/models/airline";
 
 @Injectable({
@@ -38,11 +38,11 @@ export class crudRepo {
     }
   */
 
-  deleteFlight(data: any) {
-    // pass
+  deleteFlight(data: airline): Observable<airline> {
+    return this.http.delete<airline>(this.url+`/${data.id}`)
   }
 
-  modifyFlight(data: any) {
-    // pass
+  modifyFlight(data: airline): Observable<airline> {
+    return this.http.put<airline>(this.url+`/${data.id}`, data)
   }
 }
