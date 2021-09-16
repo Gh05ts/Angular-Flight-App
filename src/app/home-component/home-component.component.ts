@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TransferService } from 'src/services/transferService';
 
 @Component({
   selector: 'app-home-component',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private airlineCache: TransferService) {}
 
   ngOnInit(): void {
     document.title = "Flight App"

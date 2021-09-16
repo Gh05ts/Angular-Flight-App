@@ -40,8 +40,19 @@ export class CreateFlightComponent implements OnInit {
   }
 
   onSubmit () {
+    const currentDB = this.airlineCache.getCache()
+    const isPresent = currentDB?.find(obj => obj.providerCode === this.formModel.providerCode)
+    if(isPresent) {
+      alert("Provider Code already present, please choose another")
+    }
     this.repo.addFlight(this.formModel).subscribe({
-      next: _ => this.router.navigate(['/']),
+      next: resp => {
+        const isPushed = currentDB?.push(resp)
+        if (isPushed) {
+          this.airlineCache.setCache(currentDB as airline[])
+        }
+        this.router.navigate(['/'])
+      },
       error: alert
     })
   }
