@@ -6,17 +6,35 @@
       </div>
     </div>
     <div class="card-body">
-      <form>
+      <form novalidate (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label>Provider Code: </label>
-          <input type="text" name="" id="" class="form-control">
+          <!-- <input type="text" name="" id="" class="form-control"> -->
+          <select name="code" id="code" class="form-control"
+          (blur)="validateCode($event)" (change)="validateCode($event)" 
+          [(ngModel)]="formModel.providerCode" [class.is-invalid]="!formCodeModel.isValid">
+            <option value="" selected>Select Code</option>
+            <option *ngFor="let val of providerCodes">{{ val }}</option>
+          </select>
+          <small class="text-danger" [class.d-none]="formCodeModel.isValid">
+            {{ formCodeModel.message }}
+          </small>
         </div>
         <div class="form-group">
           <label>Provider Type: </label>
-          <input type="text" name="" id="" class="form-control">
+          <!-- <input type="text" name="" id="" class="form-control"> -->
+          <select name="type" id="type" class="form-control"
+          (blur)="validateType($event)" (change)="validateType($event)" 
+          [(ngModel)]="formModel.providerType" [class.is-invalid]="!formTypeModel.isValid">
+            <option value="">Select Type</option>
+            <option *ngFor="let val of providerTypes">{{ val }}</option>
+          </select>
+          <small class="text-danger" [class.d-none]="formTypeModel.isValid">
+            {{ formTypeModel.message }}
+          </small>
         </div>
         <div class="text-center">
-          <button class="btn btn-info mt-4 w-50 text-light">
+          <button class="btn btn-info mt-4 w-50 text-light" [disabled]="!enableButton">
             Delete
           </button>
         </div>

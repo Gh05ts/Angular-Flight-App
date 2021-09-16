@@ -38,8 +38,8 @@ export class crudRepo {
     }
   */
 
-  deleteFlight(data: airline): Observable<airline> {
-    return this.http.delete<airline>(this.url+`/${data.id}`)
+  deleteFlight(id: number): Observable<airline> {
+    return this.http.delete<airline>(this.url+`/${id}`)
   }
 
   modifyFlight(data: airline): Observable<airline> {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { airline } from 'src/models/airline';
+import { formValidType } from 'src/models/formEdit';
 import { crudRepo } from 'src/services/crudRepository';
 import { TransferService } from 'src/services/transferService';
 import { PROVIDER_CODES, PROVIDER_TYPES } from '../app.constants';
@@ -117,14 +118,9 @@ export class ModifyFlightComponent implements OnInit {
           this.airlineCache.invalidateCache()
           this.router.navigate(['/'])
         },
-        error: err => alert
+        error: alert
       }
     )
   }
   
-}
-
-interface formValidType {
-  message: string,
-  isValid: boolean
 }
