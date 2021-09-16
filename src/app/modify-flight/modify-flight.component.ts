@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { crudRepo } from 'src/services/crudRepository';
+import { TransferService } from 'src/services/transferService';
 
 @Component({
   selector: 'app-modify-flight',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModifyFlightComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private repo: crudRepo,
+    private router: Router,
+    private airlineCache: TransferService, 
+  ) {}
 
   ngOnInit(): void {
     document.title = "Flight Modifier"

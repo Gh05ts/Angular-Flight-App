@@ -7,7 +7,7 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 export class StorageService implements InMemoryDbService {
   constructor() {}
   createDb() {
-    let airLines = [
+    let AirLines = [
       {
         id: 1,
         providerName: 'Jet Airways',
@@ -21,6 +21,6 @@ export class StorageService implements InMemoryDbService {
         providerType: 'International'
       },
     ]
-    return { airLines }
+    return { AirLines }
   }
 }

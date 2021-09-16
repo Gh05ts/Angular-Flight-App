@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="card-body">
-      <!-- {{createForm.value | json}} -->
+      <!-- {{ createForm.value | json }} -->
       <form #createForm="ngForm" novalidate (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="name">Provider Name: </label>
@@ -15,7 +15,7 @@
           (change)="firstDropChanged($event)" class="form-control" 
           name="name" id="name" [(ngModel)]="formModel.providerName">
             <option selected value="">Select Name</option>
-            <option *ngFor="let val of providerNames">{{val}}</option>
+            <option *ngFor="let val of providerNames">{{ val }}</option>
           </select>
           <small class="text-danger" [class.d-none]="nameTag.valid || nameTag.untouched">
             *required <!-- Please Select an Airline -->
@@ -33,7 +33,7 @@
           name="type" [(ngModel)]="formModel.providerType"> 
           <!-- for non "" use this (blur)='validate(typeTag.value)' or (change)='validate(typeTag.value)' -->
             <option value="">Select Type</option>
-            <option *ngFor="let val of providerTypes">{{val}}</option>
+            <option *ngFor="let val of providerTypes">{{ val }}</option>
           </select>
           <small class="text-danger" [class.d-none]="typeTag.valid || typeTag.untouched">
             *required <!-- Please Select a Flight Type -->

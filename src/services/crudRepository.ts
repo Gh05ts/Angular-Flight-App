@@ -8,7 +8,7 @@ import { airline } from "src/models/airline";
   providedIn: 'root'
 })
 export class crudRepo {
-  private url = 'api/airLines'
+  private url = 'api/AirLines'
   static magicNumber: number = 3
   
   constructor(private http: HttpClient) {}

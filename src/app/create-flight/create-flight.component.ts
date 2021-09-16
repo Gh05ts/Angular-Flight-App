@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { airline } from 'src/models/airline';
 import { crudRepo } from 'src/services/crudRepository';
+import { TransferService } from 'src/services/transferService';
 import { PROVIDER_CODES_MAP, PROVIDER_NAMES, PROVIDER_TYPES, PROVIDER_CODES } from '../app.constants';
 
 @Component({
@@ -16,12 +17,16 @@ export class CreateFlightComponent implements OnInit {
   providerTypes:string[] = PROVIDER_TYPES
 
   formModel: airline = {
-    providerCode: '',
     providerName: '',
+    providerCode: '',
     providerType: ''
   }
 
-  constructor(private repo: crudRepo, private router: Router) { }
+  constructor(
+    private repo: crudRepo, 
+    private router: Router,
+    private airlineCache: TransferService
+  ) {}
 
   ngOnInit(): void {
     document.title = "Flight Creator"
