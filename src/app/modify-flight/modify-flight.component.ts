@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { airline } from 'src/models/airline';
 import { crudRepo } from 'src/services/crudRepository';
 import { TransferService } from 'src/services/transferService';
 import { PROVIDER_CODES, PROVIDER_TYPES } from '../app.constants';
@@ -12,30 +13,61 @@ import { PROVIDER_CODES, PROVIDER_TYPES } from '../app.constants';
 export class ModifyFlightComponent implements OnInit {
 
   providerCodes: string[] = PROVIDER_CODES
-  providerTypes:string[] = PROVIDER_TYPES
+  providerTypes: string[] = PROVIDER_TYPES
+  
+  formModel: airline = {
+    providerName: "",
+    providerCode: "",
+    providerType: ""
+  }
+  
+  formCodeModel: formValidType = {
+    isValid: true,
+    message: ""
+  }
 
-  isCodeValid: boolean = true
-  isTypeValid: boolean = true
-
+  formTypeModel: formValidType = {
+    isValid: true,
+    message: ""
+  }
+  
   constructor(
     private repo: crudRepo,
     private router: Router,
     private airlineCache: TransferService, 
-  ) {}
+    ) {}
 
-  ngOnInit(): void {
-    document.title = "Flight Modifier"
+    ngOnInit(): void {
+      document.title = "Flight Modifier"
     this.airlineCache.update()
   }
-
+  
   validateCode (e: Event) {
-    const some = e.target as HTMLInputElement
-    const sm = some.value
+    const target = e.target as HTMLInputElement
+    const _code = target.value
+    const isFromOptions = this.providerCodes.find(obj => obj === _code)
+    console.debug(_code, isFromOptions)
+    if (isFromOptions) {
 
+    } else {
+      this.formCodeModel.isValid = false
+      this.formCodeModel.message = "*required"
+    }
   }
-
+  
   validateType (e: Event) {
+    const target = e.target as HTMLInputElement
+    const _type = target.value
     
   }
+  
+  onSubmit() {
+    
+  }
+  
+}
 
+interface formValidType {
+  message: string,
+  isValid: boolean
 }

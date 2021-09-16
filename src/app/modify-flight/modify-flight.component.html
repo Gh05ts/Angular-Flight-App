@@ -6,24 +6,32 @@
       </div>
     </div>
     <div class="card-body">
-      <form>
+      <form novalidate (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label>Provider Code: </label>
           <!-- <input class="form-control"> -->
           <select name="code" id="code" class="form-control"
-          [class.is-invalid]="!isCodeValid">
+          [class.is-invalid]="!formCodeModel.isValid" [(ngModel)]="formModel.providerCode"
+          (change)="validateCode($event)" (blur)="validateCode($event)">
             <option value="">Select Code</option>
             <option *ngFor="let val of providerCodes">{{ val }}</option>
           </select>
+          <small class="text-danger" [class.d-none]="formCodeModel.isValid">
+            {{ formCodeModel.message }}
+          </small>
         </div>
         <div class="form-group">
           <label>Provider Type: </label>
           <!-- <input class="form-control"> -->
           <select name="type" id="type" class="form-control"
-          [class.is-invalid]="!isTypeValid">
+          [class.is-invalid]="!formTypeModel.isValid" (blur)="validateType($event)" 
+          (change)="validateType($event)" [(ngModel)]="formModel.providerType">
             <option value="">Select Type</option>
             <option *ngFor="let val of providerTypes">{{ val }}</option>
           </select>
+          <small class="text-danger" [class.d-none]="formTypeModel.isValid">
+            {{ formTypeModel.message }}
+          </small>
         </div>
         <div class="text-center">
           <button class="btn btn-info text-light mt-4 w-50">
