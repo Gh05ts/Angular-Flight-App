@@ -14,7 +14,7 @@ import { PROVIDER_CODES, PROVIDER_TYPES } from '../app.constants';
 export class DeleteFlightComponent implements OnInit {
 
   providerCodes: string[] = PROVIDER_CODES
-  providerTypes:string[] = PROVIDER_TYPES
+  providerTypes: string[] = PROVIDER_TYPES
   
   formModel: airline = {
     providerName: "",
@@ -48,7 +48,8 @@ export class DeleteFlightComponent implements OnInit {
   validateCode(_: Event) {
     if(this.formModel.providerCode == "") {
       this.formCodeModel.isValid = false
-      this.formCodeModel.message = `*required`      
+      this.formCodeModel.message = `*required`
+      this.enableButton = false
     } else {
       const currentDB = this.airlineCache.getCache()
       const isInDB = currentDB?.find(obj => obj.providerCode === this.formModel.providerCode)
@@ -61,21 +62,24 @@ export class DeleteFlightComponent implements OnInit {
         }
       } else {
         this.formCodeModel.isValid = false
-        this.formCodeModel.message = `This code in DB, 
+        this.formCodeModel.message = `This code is not in database, 
         please use these values: ${currentDB?.map(obj => obj.providerCode)}`
+        this.enableButton = false
       }
     }
   }
 
   validateType(_: Event) {
     if(this.formModel.providerType == "") {
-      if(this.formModel.providerCode == "") {
+      if(this.formModel.providerCode == "" || !this.formCodeModel.isValid) {
         this.formTypeModel.isValid = false
         this.formTypeModel.message = "Please select code first"
+        this.enableButton = false
         return
       }
       this.formTypeModel.isValid = false
       this.formTypeModel.message = "*required"
+      this.enableButton = false
     } else {
       const currentDB = this.airlineCache.getCache()
       const isInDB = currentDB?.find(
@@ -91,8 +95,9 @@ export class DeleteFlightComponent implements OnInit {
         }
       } else {
         this.formTypeModel.isValid = false
-        this.formTypeModel.message = `${this.formModel.providerType} is not in DB,
+        this.formTypeModel.message = `${this.formModel.providerType} is not in database,
         Please choose ${this.providerTypes.filter(obj => obj != this.formModel.providerType)}`
+        this.enableButton = false
       }
     }
   }
@@ -100,7 +105,6 @@ export class DeleteFlightComponent implements OnInit {
   onSubmit() {
     const currentDB = this.airlineCache.getCache()
     const id = currentDB?.find(obj => obj.providerCode == this.formModel.providerCode)?.id
-    console.log(id)
     if(typeof id != undefined) {
       this.repo.deleteFlight(id as number).subscribe(
         {
@@ -112,7 +116,7 @@ export class DeleteFlightComponent implements OnInit {
         }
       )
     } else {
-      alert("something went wrong")
+      alert("Something went wrong")
     }
   }
 

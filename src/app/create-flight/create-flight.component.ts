@@ -12,9 +12,9 @@ import { PROVIDER_CODES_MAP, PROVIDER_NAMES, PROVIDER_TYPES, PROVIDER_CODES } fr
 })
 export class CreateFlightComponent implements OnInit {
 
-  providerNames:string[] = PROVIDER_NAMES
+  providerNames: string[] = PROVIDER_NAMES
   providerCodes: string[] = PROVIDER_CODES
-  providerTypes:string[] = PROVIDER_TYPES
+  providerTypes: string[] = PROVIDER_TYPES
 
   formModel: airline = {
     providerName: '',
@@ -34,7 +34,7 @@ export class CreateFlightComponent implements OnInit {
   }
 
   firstDropChanged(e: Event) {
-    let airline = e.target as HTMLInputElement 
+    const airline = e.target as HTMLInputElement 
     const airlineName = airline.value
     const newValue = PROVIDER_CODES_MAP[airlineName]
     this.formModel.providerCode = newValue? newValue: ""

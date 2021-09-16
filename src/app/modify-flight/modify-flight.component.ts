@@ -60,8 +60,8 @@ export class ModifyFlightComponent implements OnInit {
       } else {
         this.formCodeModel.isValid = false
         this.enableButton = false
-        this.formCodeModel.message = `Choose from these options: 
-        ${currentDB?.map(val => val.providerCode)}`   
+        this.formCodeModel.message = `This code is not in database, 
+        please use these values: ${currentDB?.map(val => val.providerCode)}`
       }
     } else {
       this.formCodeModel.isValid = false
@@ -71,8 +71,7 @@ export class ModifyFlightComponent implements OnInit {
   }
   
   validateType (_: Event) {
-    const codeValue = this.formModel.providerCode
-    if(!this.formCodeModel.isValid || codeValue == "") {
+    if(this.formModel.providerCode == "" || !this.formCodeModel.isValid) {
       this.formTypeModel.isValid = false
       this.enableButton = false
       this.formTypeModel.message = "Choose Provider Code first"
@@ -105,22 +104,26 @@ export class ModifyFlightComponent implements OnInit {
   
   onSubmit() {
     const currentDb = this.airlineCache.getCache()
-    const obj: airline | undefined = currentDb?.find(
+    const currRecord: airline | undefined = currentDb?.find(
       obj => obj.providerCode === this.formModel.providerCode
     )
-    const newObj: airline = { 
-      ...obj,
-      providerType: this.formModel.providerType
-    } as airline
-    this.repo.modifyFlight(newObj).subscribe(
-      {
-        next: _ => {
-          this.airlineCache.invalidateCache()
-          this.router.navigate(['/'])
-        },
-        error: alert
-      }
-    )
+    if(currRecord) {
+      const updatedRecord: airline = { 
+        ...currRecord,
+        providerType: this.formModel.providerType
+      } as airline
+      this.repo.modifyFlight(updatedRecord).subscribe(
+        {
+          next: _ => {
+            this.airlineCache.invalidateCache()
+            this.router.navigate(['/'])
+          },
+          error: alert
+        }
+      )
+    } else {
+      alert('Something went wrong')
+    }
   }
   
 }
