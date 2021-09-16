@@ -12,6 +12,7 @@ export class HomeComponentComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = "Flight App"
+    this.airlineCache.update()
   }
 
 }

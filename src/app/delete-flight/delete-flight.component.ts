@@ -18,6 +18,7 @@ export class DeleteFlightComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = "Flight Destroyer"
+    this.airlineCache.update()
   }
 
   // [ass]

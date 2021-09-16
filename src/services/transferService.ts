@@ -21,8 +21,9 @@ export class TransferService {
   }
 
   getCache() {
-    let temp = this.cachedList
+    const temp = this.cachedList
     this.clearCache()
+    this.isValid = false
     return temp
   }
 
@@ -31,7 +32,7 @@ export class TransferService {
   }
 
   update() {
-    if(!this.isValid) {
+    if(!this.isValid || typeof this.cachedList == undefined) {
       this.repo.getAllFlights().subscribe({
         next: resp => {
           console.info('Cache set...')

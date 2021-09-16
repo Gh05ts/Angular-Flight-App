@@ -13,7 +13,7 @@ import { PROVIDER_CODES_MAP, PROVIDER_NAMES, PROVIDER_TYPES, PROVIDER_CODES } fr
 export class CreateFlightComponent implements OnInit {
 
   providerNames:string[] = PROVIDER_NAMES
-  providerCode: string[] = PROVIDER_CODES
+  providerCodes: string[] = PROVIDER_CODES
   providerTypes:string[] = PROVIDER_TYPES
 
   formModel: airline = {
@@ -30,6 +30,7 @@ export class CreateFlightComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = "Flight Creator"
+    this.airlineCache.update()
   }
 
   firstDropChanged(e: Event) {
@@ -44,6 +45,7 @@ export class CreateFlightComponent implements OnInit {
     const isPresent = currentDB?.find(obj => obj.providerCode === this.formModel.providerCode)
     if(isPresent) {
       alert("Provider Code already present, please choose another")
+      return
     }
     this.repo.addFlight(this.formModel).subscribe({
       next: resp => {
